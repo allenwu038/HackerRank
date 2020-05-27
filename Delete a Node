@@ -1,0 +1,27 @@
+// https://www.hackerrank.com/challenges/delete-a-node-from-a-linked-list/problem
+
+static SinglyLinkedListNode deleteNode(SinglyLinkedListNode head, int position) {
+
+        // base case: deleting the head
+        if (position==0) {
+            return head.next;
+        } else {
+        
+        // two pointers, following will be at the position of the node we want to delete
+        // current will be at the position right before
+        
+        SinglyLinkedListNode current = head;
+        SinglyLinkedListNode following = head.next;
+        
+        for (int i =0; i < position-1; i++) {
+            current = current.next;
+            following = following.next;
+        }
+        
+        // skip over the following node
+        current.next = following.next;
+        following.next = null;
+        
+        return head;
+        }
+    }
