@@ -1,0 +1,11 @@
+// https://www.hackerrank.com/challenges/print-the-elements-of-a-linked-list-in-reverse/problem
+
+static void reversePrint(SinglyLinkedListNode head) {
+    if(head != null) {
+        // recurse to the end of the linked list
+        reversePrint(head.next);
+        
+        // then begin printing from the back of the list
+        System.out.println(head.data);
+     }
+}
