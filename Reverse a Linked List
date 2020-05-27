@@ -1,0 +1,25 @@
+// https://www.hackerrank.com/challenges/reverse-a-linked-list/problem
+
+static SinglyLinkedListNode reverse(SinglyLinkedListNode head) {
+
+        // three pointers to iterate through linked list
+        SinglyLinkedListNode previous = null;
+        SinglyLinkedListNode current = head;
+        SinglyLinkedListNode following = head;
+        
+        while (current != null) {
+        
+            // we have to move following forward first to remember the next node
+            following = following.next;
+            
+            // change the direction of the links at current
+            current.next = previous;
+            
+            // move previous forward to current, and current to following
+            previous = current;
+            current = following;
+        }
+        
+        // current and following will be past the last node and are null
+        return previous;
+    }
