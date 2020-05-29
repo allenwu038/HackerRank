@@ -1,0 +1,32 @@
+// https://www.hackerrank.com/challenges/merge-two-sorted-linked-lists/problem
+
+static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+    // create a new linked list, starting at dummy.next
+    // last will be the end of this new linked list, dummy
+    SinglyLinkedListNode dummy = new SinglyLinkedListNode(0);
+    SinglyLinkedListNode last = dummy;
+    while (true) {
+        // if one linked list is empty, use the rest of the other linked list
+        if (head1 == null) {
+            last.next = head2;
+            break;
+        }
+        if (head2 == null) {
+            last.next = head1;
+            break;
+        }
+        // add the smaller node out of two linked lists to the end of the merged linked list
+        // progress pointer of the list with node of smaller value
+        if (head1.data < head2.data) {
+            last.next = head1;
+            head1 = head1.next;
+        } else {
+            last.next = head2;
+            head2 = head2.next;
+        }
+        // progress last pointer to end of merged linked list
+        last = last.next;
+    }
+    // return new merged list
+    return dummy.next;
+}
