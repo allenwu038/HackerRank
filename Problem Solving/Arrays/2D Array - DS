@@ -1,0 +1,24 @@
+// https://www.hackerrank.com/challenges/2d-array/problem
+
+static int hourglassSum(int[][] arr) {
+        // new array to store all possible hourglass sums
+        int[] sums = new int[16];
+        int position = 0;
+        // find all the hourglass sums
+        for (int i = 0; i < arr.length-2; i++) {
+            for (int j = 0; j < arr.length-2; j++) {
+                int sum = 0;
+                sum = arr[i][j] + arr[i][j+1] + arr[i][j+2] + arr[i+1][j+1] + arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
+                sums[position] = sum;
+                position += 1;
+            }
+        }
+        // find the maximum value out of all sums
+        int max = -2^31;
+        for (int k = 0; k < sums.length; k++) {
+            if (sums[k] > max) {
+                max = sums[k];
+            }
+        }
+        return max;
+    }
