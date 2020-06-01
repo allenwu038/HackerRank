@@ -1,0 +1,27 @@
+// https://www.hackerrank.com/challenges/insert-a-node-into-a-sorted-doubly-linked-list/problem
+
+static DoublyLinkedListNode sortedInsert(DoublyLinkedListNode head, int data) {
+    DoublyLinkedListNode insertee = new DoublyLinkedListNode(data);
+    DoublyLinkedListNode curr = head;
+    // case: inserting new node at head
+    if (data < head.data) {
+        insertee.next = head;
+        insertee.next.prev = insertee;
+        head = insertee;
+    } else {
+        // iteration for insert at middle or end
+        while (curr.next != null && curr.next.data < insertee.data) {
+            curr = curr.next;
+        }
+        insertee.next = curr.next;
+        // case: inserting new node in middle
+        if (curr.next != null) {
+            insertee.next.prev = insertee;
+        }
+        // case: inserting at end
+        // don't need to worry about insertee.next.prev because it will be null
+        curr.next = insertee;
+        insertee.prev = curr;
+    }
+    return head;
+}
