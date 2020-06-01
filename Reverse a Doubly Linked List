@@ -1,0 +1,24 @@
+// https://www.hackerrank.com/challenges/reverse-a-doubly-linked-list/problem
+
+static DoublyLinkedListNode reverse(DoublyLinkedListNode head) {
+    DoublyLinkedListNode curr = head;
+    DoublyLinkedListNode previous = head;
+    // if head is null or if there's only one element, there's nothing to reverse
+    if (curr == null || curr.next == null) {
+        return head;
+    } 
+    while (curr != null) {
+        // switching where prev and next point to for each node
+        previous = curr.prev;
+        curr.prev = curr.next;
+        curr.next = previous;
+        // iterate 'forward' through linked list, which is going to curr.prev
+        // since we have already reversed the pointers of this node
+        curr = curr.prev;
+        }
+    // previous will point to second from last element (pre-reversal)
+    // so previous.prev post-reversal will point to the last element, 
+    // which should be our new head
+    head = previous.prev;
+    return head;
+}
