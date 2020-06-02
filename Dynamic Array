@@ -1,0 +1,57 @@
+// https://www.hackerrank.com/challenges/dynamic-array/problem
+
+/* given the long instructions, I found it helpful to first organize the steps
+ * 1. make seqList, a list of N lists
+ * 2. int lastAnswer = 0
+ * 3. create an integer array that we can return 
+ * 4. two types of queries may be given
+ *    if 1 x y:
+ *       find sublist at index (x^lastAnswer)%N in seqList
+ *       add y to sublist (or create if it is null)
+ *    if 2 x y:
+ *       find sublist at index (x^lastAnswer)%N in seqList
+ *       find value of y%sublist.size() and let lastAnswer be that value
+ *       print value of lastAnswer on a new line
+ */
+
+class Result {
+
+    /*
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts following parameters:
+     *  1. INTEGER n
+     *  2. 2D_INTEGER_ARRAY queries
+     */
+
+    public static List<Integer> dynamicArray(int n, List<List<Integer>> queries) {
+        ArrayList<Integer>[] seqList =  new ArrayList[n]; 
+        int lastAnswer = 0;
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < queries.size(); i++) {
+            // each query comes in the form of a sublist of three integers
+            int type = queries.get(i).get(0);
+            int x = queries.get(i).get(1);
+            int y = queries.get(i).get(2);
+            int index = (x^lastAnswer)%n;
+            // first type of query
+            if (type == 1) {
+                // create sublist and add y if it is null
+                if (seqList[index] == null) {
+                    ArrayList<Integer> newList = new ArrayList<>();
+                    newList.add(y);
+                    seqList[index] = newList;
+                } else {
+                    // add y to sublist if it already exists
+                    seqList[index].add(y);
+                }
+            }
+            // second type of query
+            if (type == 2) {
+                lastAnswer = seqList[index].get(y%seqList[index].size());
+                System.out.println(lastAnswer);
+                result.add(lastAnswer);
+            }
+        }
+        return result;
+    }
+}
