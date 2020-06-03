@@ -1,6 +1,6 @@
 // https://www.hackerrank.com/challenges/sparse-arrays/problem
 
-
+// using nested for loop
 static int[] matchingStrings(String[] strings, String[] queries) {
     int[] res = new int[queries.length];
     for (int i = 0; i < queries.length; i++){
@@ -9,6 +9,25 @@ static int[] matchingStrings(String[] strings, String[] queries) {
                 res[i] += 1;
             }
         }
+    }
+    return res;
+}
+
+// using hashmap
+static int[] matchingStrings(String[] strings, String[] queries) {
+    int[] res = new int[queries.length];
+    HashMap<String, Integer> map = new HashMap<>(); 
+    for (int i = 0; i < queries.length; i++) {
+        map.put(queries[i], 0);
+    }
+    for (int j = 0; j < strings.length; j++) {
+        if (map.containsKey(strings[j])) {
+            int count = map.containsKey(strings[j]) ? map.get(strings[j]) : 0;
+            map.put(strings[j], count + 1);
+        }
+    }
+    for (int i = 0; i < queries.length; i++) {
+        res[i] = map.get(queries[i]);
     }
     return res;
 }
