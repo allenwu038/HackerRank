@@ -1,0 +1,25 @@
+// https://www.hackerrank.com/challenges/array-left-rotation/problem
+
+public class Solution {
+    public static void main(String[] args) {
+
+      // read in number of items in list and number of rotations, d
+      Scanner scanner = new Scanner(System.in);
+      int n = scanner.nextInt();
+      int d = scanner.nextInt();
+
+      // create new int array with space for n items 
+      int[] array = new int[n];
+
+      // we want to read in numbers from the input
+      // and place them at the indices they belong after rotating d times
+      for(int i = 0; i < n; i++) {
+          array[(n+i-d)%n] = scanner.nextInt();
+      }
+      
+      // print out array's final state as a single line of space-seperated values
+      for(int i = 0; i < n; i++) {
+          System.out.print(array[i] + " ");
+      }      
+    }   
+}
