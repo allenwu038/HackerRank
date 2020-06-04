@@ -1,0 +1,32 @@
+// https://www.hackerrank.com/challenges/crush/problem
+
+/* NOTE: this article explains difference arrays (https://blogarithms.github.io/articles/2018-11/difference-arrays),  
+ * since a big problem with just adding to arr[i] using a nested for loop is the runtime. 
+ */ 
+
+static long arrayManipulation(int n, int[][] queries) {
+        // use long over int since some test cases have large numbers
+        long[] arr = new long[n];
+        int Q = queries.length;
+
+        for (int i = 0; i < Q; i++) {
+            int L = queries[i][0];
+            int R = queries[i][1];
+            long X = queries[i][2];
+            arr[L-1] += X;
+            if (R < n) {
+                arr[R] -= X;
+            }
+        }
+        // arr at this point has elements that show the difference between every neighboring element
+        long temp = 0;
+        long max=0;
+        for(int i=0;i<n;i++){ 
+            // adding all the differences reveals what the maximum element is  
+            temp += arr[i];  
+            if(temp > max) {
+                max = temp;
+            }
+        }
+        return max;
+    }
