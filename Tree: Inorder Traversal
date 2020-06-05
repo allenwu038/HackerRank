@@ -1,0 +1,13 @@
+//https://www.hackerrank.com/challenges/tree-inorder-traversal/problem
+
+public static void inOrder(Node root) {
+        if (root.left != null ) {
+          inOrder(root.left);
+        }
+        if (root!= null) {
+            System.out.print(root.data + " ");
+        }
+        if (root.right != null) {
+          inOrder(root.right);
+        }
+    }
