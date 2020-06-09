@@ -1,0 +1,19 @@
+// https://www.hackerrank.com/challenges/tree-level-order-traversal/problem
+// NOTE: breadth first 
+
+public static void levelOrder(Node root) {
+      // implement a queue "q" with a linked list
+      Queue<Node> q = new LinkedList<>();
+      q.add(root);
+      while(!q.isEmpty()) {
+          // q.poll() removes and returns element at front of q
+          Node temp = q.poll();
+          System.out.print(temp.data + " ");
+          if (temp.left != null) {
+              q.add(temp.left);
+          }
+          if (temp.right != null) {
+              q.add(temp.right);
+          }
+      }
+  }
