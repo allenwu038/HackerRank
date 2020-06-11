@@ -1,0 +1,26 @@
+// https://www.hackerrank.com/challenges/largest-rectangle/problem
+
+// solution 1: using a sliding window of various sizes through a nested for loop
+// NOTE: submission received 11.54/50 points, did not pass 9/16 test cases due to time limits
+
+public class Solution {
+
+    // Complete the largestRectangle function below.
+    static long largestRectangle(int[] h) {
+        long maxArea = 0;
+        long area = 0;
+        for (int i = 1; i <= h.length; i++) {
+            for (int j = 0; j <= h.length - i; j++) {
+                area = i * getMin(Arrays.copyOfRange(h, j, j+i));
+                if (area > maxArea) {
+                    maxArea = area;
+                }
+            }
+        }
+        return maxArea;
+    }
+
+    static long getMin(int[] arr) {
+        Arrays.sort(arr);
+        return arr[0];
+    }
