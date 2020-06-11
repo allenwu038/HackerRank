@@ -3,24 +3,74 @@
 // solution 1: using a sliding window of various sizes through a nested for loop
 // NOTE: submission received 11.54/50 points, did not pass 9/16 test cases due to time limits
 
-public class Solution {
+static long largestRectangle(int[] h) {
+    long maxArea = 0;
+    long area = 0;
+    for (int i = 1; i <= h.length; i++) {
+        for (int j = 0; j <= h.length - i; j++) {
+            area = i * getMin(Arrays.copyOfRange(h, j, j+i));
+            if (area > maxArea) {
+                maxArea = area;
+            }
+        }
+    }
+    return maxArea;
+}
 
-    // Complete the largestRectangle function below.
-    static long largestRectangle(int[] h) {
-        long maxArea = 0;
-        long area = 0;
-        for (int i = 1; i <= h.length; i++) {
-            for (int j = 0; j <= h.length - i; j++) {
-                area = i * getMin(Arrays.copyOfRange(h, j, j+i));
-                if (area > maxArea) {
+static long getMin(int[] arr) {
+    Arrays.sort(arr);
+    return arr[0];
+}
+    
+// solution 2: using stack
+// NOTE: algorithm described at https://www.geeksforgeeks.org/largest-rectangle-under-histogram/
+
+static long largestRectangle(int[] h) {
+
+        int maxArea = 0;
+        int stackTop;
+        int area;
+        
+        // create an empty stack
+        Stack<Integer> stack = new Stack<>();
+        
+        // iterate through all the heights in h
+        int i = 0;
+        while (i < h.length) {
+        
+            // stack is either empty or
+            // the current height is greater than the one at the top of the stack
+            // so we want to push it to the stack
+            if (stack.empty() || h[i] >= h[stack.peek()]) {
+                stack.push(i++);
+                
+            // if we encounter a height lower than the one at the top of the stack 
+            // we want to calculate the area with the height at the top of the stack 
+            // being the smallest in that rectangle
+            } else {
+                stackTop = stack.peek();
+                stack.pop();
+                
+                // using ternary operator
+                // i is the index of the first smaller height to the right of the current height
+                // in the array, and the index of the previous height on the stack is the first 
+                // smaller height to the left of the current height
+                area = h[stackTop] * (stack.empty() ? i : i-stack.peek()-1);
+                if (maxArea < area) {
                     maxArea = area;
                 }
             }
         }
-        return maxArea;
-    }
-
-    static long getMin(int[] arr) {
-        Arrays.sort(arr);
-        return arr[0];
-    }
+        
+        // do calculation for every height, using that height as the smallest 
+        // height out of all other bars included in the rectangle
+        while (!stack.empty()) {
+            stackTop = stack.peek();
+            stack.pop();
+            area = h[stackTop] * (stack.empty() ? i : i-stack.peek()-1);
+            if (maxArea < area) {
+                maxArea = area;
+            }
+        }
+    return maxArea;       
+}
