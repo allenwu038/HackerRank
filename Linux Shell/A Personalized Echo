@@ -1,4 +1,8 @@
 // https://www.hackerrank.com/challenges/bash-tutorials---a-personalized-echo/problem
 
+// we can read in an input and call it 'name'
+// echo is the ouput command
+// and we can insert name with $
+
 read name
 echo "Welcome $name"
