@@ -4,5 +4,6 @@
 // echo is the ouput command
 // and we can insert name with $
 
+#!/bin/bash
 read name
 echo "Welcome $name"
