@@ -1,0 +1,17 @@
+// https://www.hackerrank.com/challenges/bash-tutorials---getting-started-with-conditionals/problem
+
+#!/bin/bash
+
+read input
+
+// use square brackets because ((...)) is for arithmetic operations
+// the spacing is important
+if [[ $input == 'Y' || $input == 'y' ]]
+then
+echo YES
+elif [[ $input == 'N' || $input == 'n' ]]
+then 
+echo NO
+else
+echo Not Valid
+fi 
